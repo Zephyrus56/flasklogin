@@ -12,9 +12,74 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # 2MB max size
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-# Connect to the MySQL database
-db = MySQLdb.connect("localhost", "newuser", "password", "testdb")
+# Database setup
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': ''  # Change this to your MySQL root password
+}
+
+# Connect to the MySQL server (root)
+db = MySQLdb.connect(**db_config)
 cursor = db.cursor()
+
+# Create database if it doesn't exist
+cursor.execute("CREATE DATABASE IF NOT EXISTS testdb")
+
+# Create MySQL user if it doesn't exist and grant privileges
+cursor.execute("""
+    CREATE USER IF NOT EXISTS 'newuser'@'localhost' IDENTIFIED BY 'password';
+    GRANT ALL PRIVILEGES ON testdb.* TO 'newuser'@'localhost';
+    FLUSH PRIVILEGES;
+""")
+
+# Connect to the newly created database
+db_config['db'] = 'testdb'
+db = MySQLdb.connect(**db_config)
+cursor = db.cursor()
+
+# Create tables if they don't exist
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS members (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100),
+        email VARCHAR(100),
+        phone VARCHAR(15),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS admin (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100),
+        email VARCHAR(100),
+        phone VARCHAR(15),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS transaksi (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        anggota_id INT,
+        admin_id INT,
+        nama_barang VARCHAR(100),
+        quantity INT,
+        harga DECIMAL(10, 2),
+        total DECIMAL(10, 2),
+        image_path VARCHAR(255),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (anggota_id) REFERENCES members(id),
+        FOREIGN KEY (admin_id) REFERENCES admin(id)
+    );
+""")
+
+db.commit()
+
+# # Connect to the MySQL database
+# db = MySQLdb.connect("localhost", "newuser", "password", "testdb")
+# cursor = db.cursor()
 
 # Utility function to check file type
 def allowed_file(filename):
