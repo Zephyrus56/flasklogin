@@ -28,10 +28,17 @@ jobs:
           sshpass -p "$VM_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USERNAME@207.148.122.61 << 'EOF'
             cd ~/flaskapp
             git pull origin main
-            # Optional: Install dependencies or restart services
-            # Example for a Python Flask application:
+            # Activate virtual environment (if you have one)
             # source venv/bin/activate
-            # pip install -r requirements.txt
-            # sudo systemctl restart your-service
+
+            # Install dependencies
+            pip install -r requirements.txt
+
+            # Stop the currently running Flask app if any (optional)
+            pkill -f "python app.py" || true
+
+            # Start the Flask app (replace with gunicorn for production)
+            nohup python app.py > flaskapp.log 2>&1 &
+
             exit
           EOF
