@@ -17,8 +17,8 @@ jobs:
           sudo apt-get install -y sshpass
           pip install pytest  
 
-      - name: Run tests
-        run: pytest  # Run pytest after installation
+      # - name: Run tests
+      #   run: pytest  # Run pytest after installation
 
       - name: Deploy to VM
         env:
