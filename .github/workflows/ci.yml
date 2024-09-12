@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install -y sshpass
-          pip install pytest  # Install pytest to ensure it's available
+          pip install pytest  
 
       - name: Run tests
         run: pytest  # Run pytest after installation
