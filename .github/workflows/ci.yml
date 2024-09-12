@@ -27,7 +27,7 @@ jobs:
         run: |
           sshpass -p "$VM_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USERNAME@207.148.122.61 << 'EOF'
             cd ~/flaskapp
-            git pull origin master
+            git pull origin main
             # Optional: Install dependencies or restart services
             # Example for a Python Flask application:
             # source venv/bin/activate
