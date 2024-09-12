@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoardlah</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+        <h1>DashBoardlah</h1>
+
+        <!-- Master Section with Sub-Menu -->
+        <div class="buttons">
+            <div style="position: relative;">
+                <button id="master-btn">Master</button>
+                <div id="master-submenu">
+                    <button onclick="location.href='{{ url_for('show_anggota') }}'">Anggota</button>
+                    <button onclick="location.href='{{ url_for('show_admin') }}'">Admin</button>
+                </div>
+            </div>
+            <button onclick="location.href='{{ url_for('show_transaksi') }}'">Transaction</button>
+            <button onclick="location.href='{{ url_for('report_page') }}'">Report</button>
+        </div>
+
+        <!-- Single Form for Save, Update, Delete -->
+        <div class="entry-form">
+            <form action="/save_user" method="POST">
+                
+                <!-- ID Field for Update/Delete -->
+                <div class="form-row">
+                    <label for="user_id">User ID (for update/delete):</label>
+                    <input type="text" name="user_id" placeholder="User ID (Optional for Save)">
+                </div>
+                
+                <!-- Role Selection -->
+                <div class="form-row">
+                    <label for="role">Role (Anggota/Admin):</label>
+                    <select name="user_type">
+                        <option value="anggota">Anggota</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <!-- Name -->
+                <div class="form-row">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" placeholder="Name">
+                </div>
+
+                <!-- Email -->
+                <div class="form-row">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" placeholder="Email">
+                </div>
+
+                <!-- Phone -->
+                <div class="form-row">
+                    <label for="phone">Phone:</label>
+                    <input type="text" name="phone" placeholder="Phone">
+                </div>
+
+                <!-- Buttons for Save, Update, and Delete -->
+                <div class="form-row">
+                    <button type="submit" class="save-btn">Save</button>
+                    <button type="submit" formaction="/update_user" class="update-btn">Update</button>
+                    <button type="submit" formaction="/delete_user" class="delete-btn">Delete</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Table Data Display -->
+        <h3>{{ table_type }} Table</h3>
+        <div class="table-data">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                        <td>{{ member[0] }}</td>
+                        <td>{{ member[1] }}</td>
+                        <td>{{ member[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("master-btn").addEventListener("click", function() {
+            var menu = document.getElementById("master-submenu");
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        });
+    </script>
+</body>
+</html>

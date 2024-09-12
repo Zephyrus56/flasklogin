@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction Report</title>
+</head>
+<body>
+    <h1>Transaction Report</h1>
+
+    <!-- Transaction Table -->
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nama Admin/Anggota</th>
+            <th>Nama Barang</th>
+            <th>Quantity</th>
+            <th>Harga</th>
+            <th>Total</th>
+        </tr>
+        {% for transaksi in transaksi_list %}
+        <tr>
+            <td>{{ transaksi[0] }}</td>
+            <td>{{ transaksi[1] or transaksi[2] }}</td> <!-- Show admin or anggota -->
+            <td>{{ transaksi[3] }}</td>
+            <td>{{ transaksi[4] }}</td>
+            <td>{{ transaksi[5] }}</td>
+            <td>{{ transaksi[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Button to download the report as a PDF -->
+    <form action="/generate_pdf" method="POST">
+        <input type="hidden" name="num_records" value="{{ request.form['num_records'] }}">
+        <button type="submit">Download PDF</button>
+    </form>
+</body>
+</html>

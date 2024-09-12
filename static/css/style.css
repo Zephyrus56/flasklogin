@@ -1,0 +1,264 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f5;
+    color: #333;
+    text-align: center;
+}
+
+h1 {
+    color: #004aad;
+    font-size: 36px;
+    margin: 20px 0;
+}
+
+.dashboard {
+    margin: 0 auto;
+    padding: 30px;
+    width: 80%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    background-color: #1a73e8;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.buttons button:hover {
+    background-color: #005bbb;
+}
+
+#master-submenu {
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+    position: absolute;
+}
+
+#master-submenu button {
+    background-color: #005bbb;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#master-submenu button:hover {
+    background-color: #003d80;
+}
+
+.entry-form {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.entry-form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.entry-form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.save-btn, .update-btn, .delete-btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+.update-btn {
+    background-color: #ffc107;
+    color: white;
+}
+
+.update-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.table-data {
+    margin: 30px auto;
+    width: 80%;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.table-data table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-data th, .table-data td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-data th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Remove Tooltip */
+.tooltip {
+    display: none;
+}
+
+#master-submenu {
+    display: none;
+    position: absolute;
+    left: 0; /* Align it to the left of the screen or container */
+    top: 60px; /* Adjust this based on how far below the Master button you want it */
+    flex-direction: column;
+    gap: 10px;
+    background-color: #005bbb;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#master-submenu button {
+    background-color: #005bbb;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#master-submenu button:hover {
+    background-color: #003d80;
+}
+
+/* Grid layout for the form - Two Columns */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* Two equal columns */
+    gap: 20px;  /* Space between columns */
+    margin: 20px 0;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Make the buttons span across both columns */
+.form-row-buttons {
+    grid-column: 1 / span 2;  /* Span both columns */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.update-btn {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+input[type="file"] {
+    padding: 0;
+}
+
+button {
+    padding: 8px 15px;
+    margin-right: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+form button {
+    background-color: red;
+}
+
+form button:hover {
+    background-color: darkred;
+}

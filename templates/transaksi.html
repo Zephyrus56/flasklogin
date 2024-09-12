@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Records</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Transaction Records</h1>
+
+        <!-- Back to Home Button -->
+        <div class="buttons">
+            <button onclick="location.href='{{ url_for('index') }}'">Back to Home</button>
+        </div>
+
+        <!-- Form for Transaction (Save/Update/Delete) -->
+        <div class="entry-form">
+            <form action="/save_transaksi" method="POST" enctype="multipart/form-data">
+                
+                <!-- ID Transaksi for Update/Delete -->
+                <div class="form-row">
+                    <label for="transaksi_id">ID Transaksi (for update/delete):</label>
+                    <input type="text" name="transaksi_id" placeholder="ID Transaksi (Optional for Save)">
+                </div>
+                
+                <!-- Role Selection -->
+                <div class="form-row">
+                    <label for="role">Role (Anggota/Admin):</label>
+                    <select name="role">
+                        <option value="anggota">Anggota</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            
+                <!-- ID Anggota/Admin -->
+                <div class="form-row">
+                    <label for="id">ID Anggota/Admin:</label>
+                    <input type="text" name="id" placeholder="ID Anggota/Admin">
+                </div>
+            
+                <!-- Nama Barang -->
+                <div class="form-row">
+                    <label for="nama_barang">Nama Barang:</label>
+                    <input type="text" name="nama_barang" placeholder="Nama Barang">
+                </div>
+            
+                <!-- Quantity -->
+                <div class="form-row">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" placeholder="Quantity">
+                </div>
+            
+                <!-- Harga -->
+                <div class="form-row">
+                    <label for="harga">Harga:</label>
+                    <input type="number" name="harga" placeholder="Harga" step="0.01">
+                </div>
+            
+                <!-- File Upload -->
+                <div class="form-row">
+                    <label for="file">Upload Image:</label>
+                    <input type="file" name="file" accept="image/*">
+                </div>
+
+                <!-- Buttons for Save, Update, and Delete -->
+                <div class="form-row">
+                    <button type="submit" class="save-btn">Save</button>
+                    <button type="submit" formaction="/update_transaksi" class="update-btn">Update</button>
+                    <button type="submit" formaction="/delete_transaksi" class="delete-btn">Delete</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Transaction Data Table -->
+        <h3>List of Transactions</h3>
+        <div class="table-data">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Transaksi</th> <!-- ID Transaksi column added -->
+                        <th>Nama</th>
+                        <th>Nama Barang</th>
+                        <th>Quantity</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaksi in transaksi %}
+                    <tr>
+                        <td>{{ transaksi[0] }}</td> <!-- ID Transaksi -->
+                        <td>{{ transaksi[1] }}</td> <!-- Nama Anggota/Admin -->
+                        <td>{{ transaksi[2] }}</td> <!-- Nama Barang -->
+                        <td>{{ transaksi[3] }}</td> <!-- Quantity -->
+                        <td>{{ transaksi[4] }}</td> <!-- Harga -->
+                        <td>{{ transaksi[5] }}</td> <!-- Total -->
+                        <td>
+                            {% if transaksi[6] %}
+                                <img src="{{ url_for('static', filename='uploads/' + transaksi[6]) }}" alt="Product Image" width="100">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
