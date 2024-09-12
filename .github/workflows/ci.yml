@@ -1,35 +1,32 @@
-name: CI for Flask App
+name: Deploy to VM
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Run tests
-      run: pytest
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to server
-      run: |
-        ssh root@207.148.122.61 'bash -s' < ./deploy.sh
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install SSH dependencies
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy to VM
+        env:
+          VM_USERNAME: ${{ secrets.VM_USERNAME }}
+          VM_PASSWORD: ${{ secrets.VM_PASSWORD }}
+        run: |
+          sshpass -p "$VM_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USERNAME@207.148.122.61 << 'EOF'
+            cd ~/flaskapp
+            git pull origin master
+            # Optional: Install dependencies or restart services
+            # Example for a Python Flask application:
+            # source venv/bin/activate
+            # pip install -r requirements.txt
+            # sudo systemctl restart your-service
+            exit
+          EOF
