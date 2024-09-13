@@ -49,10 +49,10 @@ jobs:
             pip install -r requirements.txt
 
             # Stop the currently running Flask app if any (optional)
-            pkill -f "python app.py" || true
+            pkill -f "python3 app.py" || true
 
             # Start the Flask app (replace with gunicorn for production)
-            nohup python app.py > flaskapp.log 2>&1 &
+            nohup python3 app.py > flaskapp.log 2>&1 &
 
             exit
           EOF
